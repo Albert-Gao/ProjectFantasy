@@ -19,12 +19,12 @@ package info.gridworld.actor;
 import java.awt.Color;
 
 /**
- * A <code>Flower</code> is an actor that darkens over time. Some actors drop
+ * A <code>Strawberry</code> is an actor that darkens over time. Some actors drop
  * flowers as they move. <br />
  * The API of this class is testable on the AP CS A and AB exams.
  */
 
-public class Flower extends Actor
+public class Strawberry extends Actor
 {
     private static final Color DEFAULT_COLOR = Color.PINK;
     private static final double DARKENING_FACTOR = 0.05;
@@ -34,7 +34,7 @@ public class Flower extends Actor
     /**
      * Constructs a pink flower.
      */
-    public Flower()
+    public Strawberry()
     {
         setColor(DEFAULT_COLOR);
     }
@@ -43,7 +43,7 @@ public class Flower extends Actor
      * Constructs a flower of a given color.
      * @param initialColor the initial color of this flower
      */
-    public Flower(Color initialColor)
+    public Strawberry(Color initialColor)
     {
         setColor(initialColor);
     }

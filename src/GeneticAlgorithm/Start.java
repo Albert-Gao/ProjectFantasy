@@ -1,9 +1,9 @@
 package GeneticAlgorithm;
 
-import info.gridworld.actor.ActorWorld;
-import info.gridworld.actor.Bug;
-import info.gridworld.actor.Flower;
-import info.gridworld.actor.Rock;
+import info.gridworld.actor.*;
+import info.gridworld.actor.Creature;
+import info.gridworld.actor.Mushroom;
+import info.gridworld.actor.Strawberry;
 
 /**
  * This class runs a world that contains crab critters. <br />
@@ -14,16 +14,31 @@ public class Start
     public static void main(String[] args)
     {
         ActorWorld world = new ActorWorld();
-        world.add(new Rock());
-        world.add(new Rock());
-        world.add(new Rock());
-        world.add(new Rock());
-        world.add(new Flower());
-        world.add(new Flower());
-        world.add(new Flower());
-        world.add(new Flower());
-        world.add(new Bug());
-        world.add(new Bug());
+        world.add(new Mushroom());
+        world.add(new Mushroom());
+        world.add(new Mushroom());
+        world.add(new Mushroom());
+        world.add(new Strawberry());
+        world.add(new Strawberry());
+        world.add(new Strawberry());
+        world.add(new Strawberry());
+        world.add(new info.gridworld.actor.Creature());
+        world.add(new Creature());
         world.show();
+        world.step();
+        world.getParentFrame().repaint();
+        world.step();
+        world.getParentFrame().repaint();
+        world.step();
+        world.getParentFrame().repaint();
+        world.step();
+        world.getParentFrame().repaint();
+        world.step();
+        world.getParentFrame().repaint();
+        world.step();
+        world.step();
+        world.getParentFrame().repaint();
+        world.step();
+        world.step();
     }
 }

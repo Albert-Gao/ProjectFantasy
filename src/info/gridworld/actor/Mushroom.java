@@ -19,12 +19,12 @@ package info.gridworld.actor;
 import java.awt.Color;
 
 /**
- * A <code>Rock</code> is an actor that does nothing. It is commonly used to
+ * A <code>Mushroom</code> is an actor that does nothing. It is commonly used to
  * block other actors from moving. <br />
  * The API of this class is testable on the AP CS A and AB exams.
  */
 
-public class Rock extends Actor
+public class Mushroom extends Actor
 {
     
     
@@ -33,7 +33,7 @@ public class Rock extends Actor
     /**
      * Constructs a black rock.
      */
-    public Rock()
+    public Mushroom()
     {
         setColor(DEFAULT_COLOR);
     }
@@ -42,7 +42,7 @@ public class Rock extends Actor
      * Constructs a rock of a given color.
      * @param rockColor the color of this rock
      */
-    public Rock(Color rockColor)
+    public Mushroom(Color rockColor)
     {
         setColor(rockColor);
     }

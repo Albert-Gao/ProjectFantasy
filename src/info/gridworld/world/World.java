@@ -310,4 +310,8 @@ public class World<T>
         }
         return s;
     }
+
+    public WorldFrame getParentFrame(){
+        return (WorldFrame) this.frame;
+    }
 }

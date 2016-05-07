@@ -22,16 +22,31 @@ import info.gridworld.grid.Location;
 import java.awt.Color;
 
 /**
- * A <code>Bug</code> is an actor that can move and turn. It drops flowers as
+ * A <code>Creature</code> is an actor that can move and turn. It drops flowers as
  * it moves. <br />
  * The implementation of this class is testable on the AP CS A and AB exams.
  */
-public class Bug extends Actor
+public class Creature extends Actor
 {
+    private int energyLevel;
+    private double[] Chromosome;
+
+    public int getEnergyLevel() {
+        return energyLevel;
+    }
+
+    public double[] getChromosome() {
+        return Chromosome;
+    }
+
+    public void setEnergyLevel(int energyLevel) {
+        this.energyLevel = energyLevel;
+    }
+
     /**
      * Constructs a red bug.
      */
-    public Bug()
+    public Creature()
     {
         setColor(Color.RED);
     }
@@ -40,7 +55,7 @@ public class Bug extends Actor
      * Constructs a bug of a given color.
      * @param bugColor the color for this bug
      */
-    public Bug(Color bugColor)
+    public Creature(Color bugColor)
     {
         setColor(bugColor);
     }
@@ -79,8 +94,8 @@ public class Bug extends Actor
             moveTo(next);
         else
             removeSelfFromGrid();
-        Flower flower = new Flower(getColor());
-        flower.putSelfInGrid(gr, loc);
+        Strawberry strawberry = new Strawberry(getColor());
+        strawberry.putSelfInGrid(gr, loc);
     }
 
     /**
@@ -98,7 +113,7 @@ public class Bug extends Actor
         if (!gr.isValid(next))
             return false;
         Actor neighbor = gr.get(next);
-        return (neighbor == null) || (neighbor instanceof Flower);
+        return (neighbor == null) || (neighbor instanceof Strawberry);
         // ok to move into empty location or onto flower
         // not ok to move onto any other actor
     }

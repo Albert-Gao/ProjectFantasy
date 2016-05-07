@@ -21,14 +21,14 @@ import info.gridworld.grid.Location;
 import java.util.ArrayList;
 
 /**
- * A <code>Critter</code> is an actor that moves through its world, processing
+ * A <code>Monster</code> is an actor that moves through its world, processing
  * other actors in some way and then moving to a new location. Define your own
  * critters by extending this class and overriding any methods of this class
  * except for <code>act</code>. When you override these methods, be sure to
  * preserve the postconditions. <br />
  * The implementation of this class is testable on the AP CS A and AB exams.
  */
-public class Critter extends Actor
+public class Monster extends Actor
 {
     /**
      * A critter acts by getting a list of other actors, processing that list,
@@ -72,7 +72,7 @@ public class Critter extends Actor
     {
         for (Actor a : actors)
         {
-            if (!(a instanceof Rock) && !(a instanceof Critter))
+            if (!(a instanceof Mushroom) && !(a instanceof Monster))
                 a.removeSelfFromGrid();
         }
     }

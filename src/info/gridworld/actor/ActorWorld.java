@@ -30,7 +30,7 @@ import java.util.ArrayList;
 public class ActorWorld extends World<Actor>
 {    
     private static final String DEFAULT_MESSAGE = "Click on a grid location to construct or manipulate an actor.";
-    
+    public static ArrayList<Creature> bugList = new ArrayList<>();
     /**
      * Constructs an actor world with a default grid.
      */
@@ -67,6 +67,7 @@ public class ActorWorld extends World<Actor>
             if (a.getGrid() == gr)
                 a.act();
         }
+        System.out.print("3434");
     }
 
     /**
@@ -86,8 +87,12 @@ public class ActorWorld extends World<Actor>
     public void add(Actor occupant)
     {
         Location loc = getRandomEmptyLocation();
-        if (loc != null)
+        if (loc != null) {
             add(loc, occupant);
+        }
+        if (occupant instanceof Creature){
+            this.bugList.add((Creature)occupant);
+        }
     }
 
     /**

@@ -20,7 +20,7 @@ import info.gridworld.grid.BoundedGrid;
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;
 import info.gridworld.gui.WorldFrame;
-
+import GeneticAlgorithm.Config;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Random;
@@ -43,8 +43,8 @@ public class World<T>
 
     private static Random generator = new Random();
 
-    private static final int DEFAULT_ROWS = 35;
-    private static final int DEFAULT_COLS = 60;
+    private static final int DEFAULT_ROWS = Config.worldRows;
+    private static final int DEFAULT_COLS = Config.worldColumns;
 
     public World()
     {

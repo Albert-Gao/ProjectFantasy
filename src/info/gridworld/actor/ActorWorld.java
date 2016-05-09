@@ -1,21 +1,6 @@
-/* 
- * AP(r) Computer Science GridWorld Case Study:
- * Copyright(c) 2005-2006 Cay S. Horstmann (http://horstmann.com)
- *
- * This code is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation.
- *
- * This code is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * @author Cay Horstmann
- */
-
 package info.gridworld.actor;
 
+import GeneticAlgorithm.myGA;
 import info.gridworld.grid.Grid;
 import info.gridworld.grid.Location;
 import info.gridworld.world.World;
@@ -30,12 +15,18 @@ import java.util.ArrayList;
 public class ActorWorld extends World<Actor>
 {    
     private static final String DEFAULT_MESSAGE = "Click on a grid location to construct or manipulate an actor.";
-    public static ArrayList<Creature> bugList = new ArrayList<>();
+    private myGA geneticAlgorithm;
+
+    public myGA getGeneticAlgorithm() {
+        return geneticAlgorithm;
+    }
+
     /**
      * Constructs an actor world with a default grid.
      */
-    public ActorWorld()
+    public ActorWorld(myGA a)
     {
+        geneticAlgorithm = a;
     }
 
     /**
@@ -67,7 +58,6 @@ public class ActorWorld extends World<Actor>
             if (a.getGrid() == gr)
                 a.act();
         }
-        System.out.print("3434");
     }
 
     /**
@@ -90,9 +80,6 @@ public class ActorWorld extends World<Actor>
         if (loc != null) {
             add(loc, occupant);
         }
-        if (occupant instanceof Creature){
-            this.bugList.add((Creature)occupant);
-        }
     }
 
     /**
@@ -109,4 +96,6 @@ public class ActorWorld extends World<Actor>
         occupant.removeSelfFromGrid();
         return occupant;
     }
+
+
 }

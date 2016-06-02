@@ -153,6 +153,10 @@ public class Creature extends Actor {
                 boolean isEat3 = actOnNearby(getRightChromosome(Config.hardCode.monster), returnActor3.getLocation());
                 if (isEat3) {
                     actOnMonster();
+                } else {
+                    if (getLocation() != null) {
+                        randomAct();
+                    }
                 }
                 break;
         }

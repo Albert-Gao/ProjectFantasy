@@ -82,13 +82,11 @@ public class GUIController<T> {
                 ex.printStackTrace();
             }
 
-        timer = new Timer(INITIAL_DELAY, new ActionListener() {
-            public void actionPerformed(ActionEvent evt) {
-                if (geneticAlgorithm.isAllDead() & running == true) {
-                    stop();
-                } else {
-                    step();
-                }
+        timer = new Timer(INITIAL_DELAY, evt -> {
+            if (geneticAlgorithm.isAllDead() & running == true) {
+                stop();
+            } else {
+                step();
             }
         });
 
@@ -170,7 +168,7 @@ public class GUIController<T> {
         display.setToolTipsEnabled(true);
         parentFrame.setRunMenuItemsEnabled(true);
         timer.stop();
-        //stopButton.setEnabled(false);
+        stopButton.setEnabled(false);
         runButton.setEnabled(true);
         //stepButton.setEnabled(true);
         running = false;

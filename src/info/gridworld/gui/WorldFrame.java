@@ -70,7 +70,7 @@ public class WorldFrame<T> extends JFrame
 
         displayMap = new DisplayMap();
         String title = System.getProperty("info.gridworld.gui.frametitle");
-        if (title == null) title = resources.getString("frame.title"); 
+        if (title == null) title = "Project Fantasy";
         setTitle(title);
         setLocation(25, 15);
 

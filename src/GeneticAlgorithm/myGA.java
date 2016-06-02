@@ -4,7 +4,9 @@ import info.gridworld.actor.*;
 import info.gridworld.grid.Grid;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by camus on 9/05/2016.
@@ -49,11 +51,13 @@ public class myGA {
     private ArrayList<Monster> monsters;
     private ArrayList<Mushroom> mushrooms;
     private ArrayList<Strawberry> strawberries;
+    private LinkedList<Integer> avgFitnessList;
     private int roundCounts;
     private int livedNum; //population still alive
 
     public myGA() {
         this.fitnessList = new LinkedList<>();
+        this.avgFitnessList = new LinkedList<>();
         this.population = new ArrayList<>();
         this.roundCounts = 0;
         this.livedNum = Config.populationSize;
@@ -64,8 +68,39 @@ public class myGA {
 
     public void generateCreatures() {
         ArrayList<Creature> newPopulation = new ArrayList<>();
+        int size = Config.populationSize;
+        boolean foundElite = false;
+        if (!isAllDead()) {
+            Creature x = new Creature();
+            x = chooseElite();
+            newPopulation.add(x);
+            foundElite = true;
+        }
 
+        if (foundElite){
+            size = size -1;
+        }
+
+        if (monsters.size() != 0) {
+            cleanAll();
+        }
+
+        if (isAllDead()){
+            this.generateRandomCreatures();
+        } else {
+            newPopulation = mainLogicForGenerateCreatures(size,newPopulation);
+            this.population = newPopulation;
+        }
+    }
+
+    public void generateRandomCreatures() {
         for (int i = 0; i < Config.populationSize; i++) {
+            this.population.add(new Creature());
+        }
+    }
+
+    public ArrayList<Creature> mainLogicForGenerateCreatures(int size, ArrayList<Creature> newPopulation){
+        for (int i = 0; i < size; i++) {
             Creature a, b;
             //choose 2 parents using roulette wheel
             do {
@@ -101,16 +136,7 @@ public class myGA {
             Creature realNew = new Creature(newKid.getChromosome());
             newPopulation.add(realNew);
         }
-        if (monsters.size() != 0) {
-            cleanAll();
-        }
-        this.population = newPopulation;
-    }
-
-    public void generateRandomCreatures() {
-        for (int i = 0; i < Config.populationSize; i++) {
-            this.population.add(new Creature());
-        }
+        return newPopulation;
     }
 
     private double[] doMutation(double[] oldChromosome) {
@@ -142,7 +168,7 @@ public class myGA {
     }
 
     private Creature singlePointCrossover(Creature winner, Creature loser) {
-        int crossPoint = Utility.randomIntFromRange(1, 11);
+        int crossPoint = Utility.randomIntFromRange(3, 10);
         double[] chromosome = new double[Config.encode.chromosomeLenth];
         for (int i = 0; i < Config.encode.chromosomeLenth; i++) {
             chromosome[i] = 0.5;
@@ -197,10 +223,10 @@ public class myGA {
             }
         }
         if (noZeroList.size() != 0) {
-            int randomNum = Utility.randomIntFromRange(0,noZeroList.size()-1);
+            int randomNum = Utility.randomIntFromRange(0, noZeroList.size() - 1);
             return noZeroList.get(randomNum);
         } else {
-            int randomNum = Utility.randomIntFromRange(0,Config.populationSize-1);
+            int randomNum = Utility.randomIntFromRange(0, Config.populationSize - 1);
             return population.get(randomNum);
         }
     }
@@ -274,8 +300,10 @@ public class myGA {
         this.mushrooms = null;
         //this.population = new ArrayList<>();
         this.monsters = new ArrayList<>();
-        this.strawberries = new ArrayList<>();;
-        this.mushrooms = new ArrayList<>();;
+        this.strawberries = new ArrayList<>();
+        ;
+        this.mushrooms = new ArrayList<>();
+        ;
     }
 
     public void printResult() {
@@ -285,11 +313,22 @@ public class myGA {
         }
         fitnessList.addLast(totalFitness);
 
+        //calculate the total avg fitness;
+        int avgFit = calculateListAverage(getFitnessList());
+        this.avgFitnessList.addLast(avgFit);
+
         //generate the whole fitness list;
         StringBuilder sb1 = new StringBuilder();
         for (Integer i : fitnessList) {
             sb1.append(i);
             sb1.append(",");
+        }
+
+        //generate the whole avg fitness
+        StringBuilder sb2 = new StringBuilder();
+        for (Integer i : avgFitnessList) {
+            sb2.append(i);
+            sb2.append(",");
         }
 
         //Display on the MessageBox
@@ -307,6 +346,42 @@ public class myGA {
         System.out.println("================================");
         System.out.println("Round: " + roundCounts);
         System.out.println("Current Fitness: " + fitnessList.getLast());
-        System.out.println("Total by far:" + sb1.toString());
+        System.out.println("Current Average Fitness: " + avgFit);
+        //System.out.println("Total by far:" + sb1.toString());
+        System.out.println("Total AVG by far:" + sb2.toString());
+    }
+
+    private Creature chooseElite() {
+        Creature elite;
+
+        elite = Collections.max(population, (first, second) -> {
+            if (first.getEnergyLevel()>second.getEnergyLevel()){
+                return 1;
+            } else if (first.getEnergyLevel()<second.getEnergyLevel()){
+                return -1;
+            }
+            return 0;
+        });
+
+        return elite;
+    }
+
+    public int getCurrentFitness(){
+        int fitness = 0;
+        for (Creature x : population){
+            fitness += x.getEnergyLevel();
+        }
+        return fitness;
+    }
+
+    private int calculateListAverage(List<Integer> marks) {
+        Integer sum = 0;
+        if(!marks.isEmpty()) {
+            for (Integer mark : marks) {
+                sum += mark;
+            }
+            return sum.intValue() / marks.size();
+        }
+        return sum;
     }
 }
